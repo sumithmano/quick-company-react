@@ -34,7 +34,8 @@ class Navbar extends Component {
         instance.close()
     }
 
-    logoutClick() {
+    logoutClick(e) {
+        e.preventDefault()
         UserService.logout()
             .finally(() => {
                 this.props.history.push("/login");
@@ -56,7 +57,7 @@ class Navbar extends Component {
                         <ul className="right hide-on-small-only">
                             <li><Link to="/">Company</Link></li>
                             <li><Link to="/about">About</Link></li>
-                            <li><a type="button" onClick={this.logoutClick}>Logout</a></li>
+                            <li><Link to="/" type="button" onClick={this.logoutClick}>Logout</Link></li>
                         </ul>
                     </div>
                 </nav>

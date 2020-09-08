@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Main from './components/Main'
 import Navbar from './components/Navbar'
 import './App.css';
-import UserService from './services/UserService'
 
 const App = () => {
   return (

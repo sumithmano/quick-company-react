@@ -3,6 +3,8 @@ import { Link, withRouter } from 'react-router-dom'
 
 import UserService from '../services/UserService'
 
+/* global M */ 
+
 class Login extends Component {
     constructor(props) {
         super(props)
@@ -21,7 +23,10 @@ class Login extends Component {
             .then(response => {
                 this.props.history.push("/")
             })
-            .catch(err =>  console.log(err))
+            .catch(err =>  {
+                console.log(err.response.data.message)
+                M.toast({html: err.message, classes: 'rounded'})
+            })
 
     }
 
@@ -30,7 +35,7 @@ class Login extends Component {
             <div>
                 <br />
                 <center>
-                    <img className="responsive-img" style={{ width: "100px" }} src="./icon.svg" />
+                    <img className="responsive-img" style={{ width: "100px" }} src="./icon.svg" alt="icon" />
                     <br /><br />
 
                     <h5 className="indigo-text">Please, login into your account</h5>

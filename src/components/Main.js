@@ -6,6 +6,7 @@ import Company from './Company'
 import About from './About'
 import Login from './Login'
 import Create from './Create'
+import VerifySuccess from './VerifySuccess'
 
 // const ProtectedRoute = ({ component: Component, ...rest }) => (
 //     <Route {...rest} render={(props) => (
@@ -24,6 +25,8 @@ const Main = () => (
             {/* <ProtectedRoute exact path='/' component={Company} /> */}
             <Route exact path='/login' render={() =>  !UserService.isAthenticated() ? <Login /> : <Redirect to="/" />} />
             <Route exact path='/create' render={() =>  !UserService.isAthenticated() ? <Create /> : <Redirect to="/" />} />
+            <Route exact path='/verified' render={() =>  !UserService.isAthenticated() ? <VerifySuccess /> : <Redirect to="/" />} />
+            
         </Switch>
     </main>
 )

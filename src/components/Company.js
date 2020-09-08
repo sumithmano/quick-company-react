@@ -5,6 +5,7 @@ import CompanyService from '../services/CompanyService'
 import UserService from '../services/UserService'
 import FavoutiteService from '../services/FavoutiteService'
 import CompanyItem from './CompanyItem'
+import Loader from './Loader'
 
 class Company extends Component {
 
@@ -15,7 +16,8 @@ class Company extends Component {
             processedList: [],
             userId: '',
             enableSort: false,
-            searchKey: ''
+            searchKey: '',
+            loading: true
         }
         this.toggleFavourite = this.toggleFavourite.bind(this)
         this.toggleSort = this.toggleSort.bind(this)
@@ -45,32 +47,45 @@ class Company extends Component {
                 console.log(err)
                 this.props.history.push("/login");
             })
+            .finally(() => {
+                this.setState({loading: false})
+            })
     }
 
     toggleFavourite(company) {
         let userId = this.state.userId
+        this.setState({loading: true})
         if (company.isFavourite) {
             let fav = company.favourites.find(fav => fav.userId === userId)
             FavoutiteService.removeFavourite(fav.id)
             .then((response) => {
                 this.getCompanyList()
-            }).catch(err => console.log(err))
+            })
+            .catch(err => {
+                console.log(err)
+                this.setState({loading: false})
+            })
         } else {
             FavoutiteService.addFavourite({
                 userId: userId,
                 comapanyId: company.id
             }).then((response) => {
                 this.getCompanyList()
-            }).catch(err => console.log(err))
+            })
+            .catch(err => {
+                console.log(err)
+                this.setState({loading: false})
+            })
         }
     }
 
     processList() {
         debugger
         const { rawCompanyList, searchKey, enableSort } = this.state
-        let processedList = rawCompanyList.filter(list => list.name.includes(searchKey))
+        let key = searchKey.toLowerCase()
+        let processedList = rawCompanyList.filter(list => list.name.toLowerCase().includes(key))
         if (enableSort) {
-            processedList.sort()
+            processedList.sort((a,b) => a.name > b.name ? 1 : -1)
         }
         this.setState({ processedList: processedList })
     }
@@ -84,9 +99,10 @@ class Company extends Component {
     }
 
     render() {
-        const { processedList, userId, enableSort } = this.state
+        const { processedList, userId, enableSort, loading } = this.state
         return (
             <div className="section">
+                { loading && <Loader />}
                 { this.props.onlyFav
                     ? <Link className="btn grey"  to="/">BACK</Link>
                     : <Link className="btn"  to="/favourite">Favourite</Link>

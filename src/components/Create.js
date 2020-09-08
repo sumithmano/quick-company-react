@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import UserService from '../services/UserService'
 
@@ -14,7 +14,7 @@ class Login extends Component {
     onSubmit(e) {
         e.preventDefault()
 
-        if (this.passwordRef1.value != this.passwordRef2.value) {
+        if (this.passwordRef1.value !== this.passwordRef2.value) {
             M.toast({html: 'Passwords don\'t match', classes: 'rounded'})
             return
         }
@@ -27,7 +27,10 @@ class Login extends Component {
         
         UserService.create(payload)
             .then(response => {
-                this.props.history.push("/login")
+                M.toast({html: 'Email sent. Please verify', classes: 'rounded'})
+                // setTimeout(() => {
+                //     this.props.history.push("/login")
+                // }, 3000)
             })
             .catch(err =>  console.log(err))
 
@@ -38,7 +41,7 @@ class Login extends Component {
             <div>
                 <br />
                 <center>
-                    <img className="responsive-img" style={{ width: "100px" }} src="./icon.svg" />
+                    <img className="responsive-img" style={{ width: "100px" }} src="./icon.svg" alt="icon" />
                     <br /><br />
 
                     <h5 className="indigo-text">Create your account</h5>

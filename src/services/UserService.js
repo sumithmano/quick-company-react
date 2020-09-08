@@ -2,12 +2,9 @@ import BaseService from './BaseService'
 import axios from 'axios'
 
 class UserService extends BaseService {
-    constructor() {
-        super()
-    }
 
     static login(payload) {
-        let url = UserService.baseUrl + "/users" + "/login"
+        let url = `${UserService.baseUrl}/users/login`
         return axios.post(url, payload)
             .then(response => {
                 if(response.data) {
@@ -19,7 +16,7 @@ class UserService extends BaseService {
     }
 
     static create(payload) {
-        let url = UserService.baseUrl + "/users" + ""
+        let url = `${UserService.baseUrl}/users`
         return axios.post(url, payload)
             .then(response => {
                 // if(response.data) {
@@ -40,7 +37,7 @@ class UserService extends BaseService {
 
     static logout() {
         let access_token = localStorage.getItem('access_token')
-        let url = "http://localhost:3000/api" + "/Users" + "/logout" + "?access_token=" + access_token
+        let url = `${UserService.baseUrl}/users/logout?access_token=${access_token}`
         return axios.post(url)
             .catch(err => console.log(err))
             .finally(() => {
