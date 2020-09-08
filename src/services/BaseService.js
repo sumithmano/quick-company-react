@@ -5,7 +5,7 @@ class BaseService {
     constructor() {
     }
 
-    static baseUrl = "http://localhost:3000/api"
+    static baseUrl = process.env.NODE_ENV === 'production' ? "/api" : "http://localhost:3000/api"
 
 }
 

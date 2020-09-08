@@ -7,7 +7,7 @@ class UserService extends BaseService {
     }
 
     static login(payload) {
-        let url = "http://localhost:3000/api" + "/Users" + "/login"
+        let url = UserService.baseUrl + "/users" + "/login"
         return axios.post(url, payload)
             .then(response => {
                 if(response.data) {
@@ -19,7 +19,7 @@ class UserService extends BaseService {
     }
 
     static create(payload) {
-        let url = "http://localhost:3000/api" + "/Users" + ""
+        let url = UserService.baseUrl + "/users" + ""
         return axios.post(url, payload)
             .then(response => {
                 // if(response.data) {

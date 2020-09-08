@@ -1,14 +1,14 @@
 import BaseService from './BaseService'
 import axios from 'axios'
 
-class CompanyService extends BaseService {
+class FavoutiteService extends BaseService {
     constructor() {
         super()
     }
 
     static addFavourite(payload) {
         // let access_token = localStorage.getItem('access_token')
-        let url = "http://localhost:3000/api" + "/favourites" + ""
+        let url = FavoutiteService.baseUrl + "/favourites" + ""
         return axios.post(url, payload)
             .then(response => {
                 return response && response.data || {}
@@ -25,4 +25,4 @@ class CompanyService extends BaseService {
     }
 }
 
-export default CompanyService
+export default FavoutiteService

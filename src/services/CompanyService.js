@@ -10,7 +10,7 @@ class CompanyService extends BaseService {
     // https://bezkoder.com/react-jwt-auth/#Add_Navbar_and_define_Routes
     static getCompanyList() {
         let access_token = localStorage.getItem('access_token')
-        let url = "http://localhost:3000/api" + "/companies" + ""
+        let url = CompanyService.baseUrl + "/companies" + ""
         let params = {
             access_token,
             filter: {
