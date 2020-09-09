@@ -43,11 +43,8 @@ class Navbar extends Component {
     }
 
     render() {
-        if (!UserService.isAthenticated()) {
-            return null
-        }
         return (
-            <div>
+            <div style={{display: UserService.isAthenticated() ? "block" : "none" }}>
                 <nav className="blue darken-3">
                     <div className="nav-wrapper">
                         <a href="/" className="brand-logo center">Quick Company</a>
